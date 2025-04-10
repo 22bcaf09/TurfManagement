@@ -5,22 +5,24 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center mb-4">Available Slots for Today</h1>
-    <div class="row">
-        {% for slot in slots %}
-            <div class="col-6 col-md-3 mb-2">
-                <div class="card shadow-sm" style="font-size: 0.9rem;">
-                    <div class="card-body p-2">
-                        <h6 class="card-title mb-1">{{ slot.date }}</h6>
-                        <p class="card-text mb-1">
-                            {{ slot.start_time|date:"h:i A" }} - {{ slot.end_time|date:"h:i A" }}
-                        </p>
-                        <p class="text-success small mb-0">Available</p>
+        <div class="row">
+            {% for slot in slots %}
+                <div class="col-6 col-md-3 mb-2">
+                    <div class="card shadow-sm" style="font-size: 0.9rem;">
+                        <div class="card-body p-2">
+                            <h6 class="card-title mb-1">{{ slot.date }}</h6>
+                            <p class="card-text mb-1">
+                                {{ slot.start_time|date:"h:i A" }} - {{ slot.end_time|date:"h:i A" }}
+                            </p>
+                            <p class="text-success small mb-0">Available</p>
+                            <a href="{% url 'book_slot' slot.id %}" class="btn btn-sm btn-primary mt-2">Book Now</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% empty %}
-            <p class="text-center">No available slots for today.</p>
-        {% endfor %}
+            {% empty %}
+                <p class="text-center">No available slots for today.</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

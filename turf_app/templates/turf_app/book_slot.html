@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Slot - Turf Booking WebApp{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Book Slot</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Slot Details</h5>
+            <p><strong>Date:</strong> {{ slot.date }}</p>
+            <p><strong>Time:</strong> {{ slot.start_time|date:"h:i A" }} - {{ slot.end_time|date:"h:i A" }}</p>
+            <p><strong>Amount:</strong> ₹1500</p>
+            <hr>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="customer_name" class="form-label">Customer Name</label>
+                    <input type="text" class="form-control" id="customer_name" name="customer_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="customer_number" class="form-label">Customer Number</label>
+                    <input type="text" class="form-control" id="customer_number" name="customer_number" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Book Slot</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
