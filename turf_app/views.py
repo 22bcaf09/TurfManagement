@@ -50,7 +50,7 @@ def book_slot(request, slot_id):
         slot.is_available = False
         slot.save()
 
-        messages.success(request, 'Slot booked successfully!')
+        messages.success(request, f"Slot booked successfully for {slot.date} from {slot.start_time} to {slot.end_time}!")
         return redirect('available_slots')  # Redirect to the available slots page
 
     return render(request, 'turf_app/book_slot.html', {'slot': slot})

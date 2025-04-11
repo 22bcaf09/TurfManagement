@@ -3,11 +3,90 @@
 {% block title %}Dashboard - Turf Booking WebApp{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2 class="text-center my-4">Welcome to Turf Booking WebApp Dashboard</h2>
+<div class="container-fluid p-5 bg-gradient" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: black;">
+    <div class="text-center">
+        <h1 class="display-4 fw-bold">Welcome, {{ user.username }}!</h1>
+        <p class="lead">Your one-stop solution to manage bookings and explore available slots.</p>
+    </div>
 </div>
-<div class="container mt-4">
-    <a href="{% url 'available_slots' %}" class="btn btn-primary">View Available Slots</a>
-    <a href="{% url 'view_bookings' %}" class="btn btn-secondary ms-2">View All Bookings</a>
+
+<div class="container mt-5">
+    <div class="row g-4">
+        <!-- Card: View Available Slots -->
+        <div class="col-md-4">
+            <div class="card shadow-lg border-0 h-100 hover-card">
+                <div class="card-body text-center">
+                    <div class="icon-container mb-3">
+                        <i class="bi bi-calendar-check display-3 text-primary"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Available Slots</h5>
+                    <p class="card-text text-muted">Check and book available slots for today and upcoming days.</p>
+                    <a href="{% url 'available_slots' %}" class="btn btn-primary btn-lg">View Slots</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: View All Bookings -->
+        <div class="col-md-4">
+            <div class="card shadow-lg border-0 h-100 hover-card">
+                <div class="card-body text-center">
+                    <div class="icon-container mb-3">
+                        <i class="bi bi-list-check display-3 text-success"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Your Bookings</h5>
+                    <p class="card-text text-muted">View all your bookings and their statuses.</p>
+                    <a href="{% url 'view_bookings' %}" class="btn btn-success btn-lg">View Bookings</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Logout -->
+        <div class="col-md-4">
+            <div class="card shadow-lg border-0 h-100 hover-card">
+                <div class="card-body text-center">
+                    <div class="icon-container mb-3">
+                        <i class="bi bi-box-arrow-right display-3 text-danger"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Logout</h5>
+                    <p class="card-text text-muted">Sign out of your account securely.</p>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-lg">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    /* Hover effect for cards */
+    .hover-card:hover {
+        transform: translateY(-10px);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .hover-card {
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Icon container styling */
+    .icon-container {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 50%;
+        padding: 20px;
+        display: inline-block;
+    }
+
+    /* Gradient background for the hero section */
+    .bg-gradient {
+        border-radius: 0 0 20px 20px;
+    }
+
+    /* Text color for hero section */
+    .bg-gradient h1, .bg-gradient p {
+        color: black; /* Changed text color to black */
+        text-shadow: none; /* Removed text shadow */
+    }
+</style>
 {% endblock %}
