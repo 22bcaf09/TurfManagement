@@ -12,6 +12,16 @@
             <p><strong>Time:</strong> {{ slot.start_time|date:"h:i A" }} - {{ slot.end_time|date:"h:i A" }}</p>
             <p><strong>Amount:</strong> ₹1500</p>
             <hr>
+            <h5 class="text-center">Scan QR Code to Pay</h5>
+            <div class="text-center mb-3">
+                <!-- Use the external image link for the QR code -->
+                <img src="https://i.postimg.cc/d3pvkt87/qr.webp" alt="QR Code" class="img-fluid" style="max-width: 200px;">
+            </div>
+            <h6>Bank Details:</h6>
+            <p><strong>Account Name:</strong> Turf Booking</p>
+            <p><strong>Account Number:</strong> 1234567890</p>
+            <p><strong>IFSC Code:</strong> ABCD0123456</p>
+            <hr>
             <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">

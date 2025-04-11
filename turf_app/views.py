@@ -3,31 +3,47 @@ from .models import Slot, Booking
 from datetime import date, datetime
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from collections import defaultdict
+
+from datetime import date, datetime, timedelta
+from django.shortcuts import render
+from turf_app.models import Slot
 
 def available_slots(request):
     today = date.today()  # Get today's date
+    tomorrow = today + timedelta(days=1)  # Get tomorrow's date
     now = datetime.now().time()  # Get the current time
 
-    # Filter slots for today and exclude past time slots
-    slots = Slot.objects.filter(is_available=True, date=today, start_time__gte=now).order_by('start_time')
+    # Fetch slots for today (excluding past time slots)
+    today_slots = Slot.objects.filter(date=today, start_time__gte=now).order_by('start_time')
 
-    return render(request, 'turf_app/available_slots.html', {'slots': slots})
+    # Fetch slots for tomorrow
+    tomorrow_slots = Slot.objects.filter(date=tomorrow).order_by('start_time')
+
+    return render(request, 'turf_app/available_slots.html', {
+        'today_slots': today_slots,
+        'tomorrow_slots': tomorrow_slots
+    })
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Slot, Booking
+from django.contrib import messages
 
 def book_slot(request, slot_id):
     slot = get_object_or_404(Slot, id=slot_id, is_available=True)  # Get the slot if available
 
     if request.method == 'POST':
+        # Get customer details from the form
         customer_name = request.POST.get('customer_name')
         customer_number = request.POST.get('customer_number')
 
-        # Create a new booking
-        Booking.objects.create(
+        # Create a new booking with the correct slot date
+        booking = Booking.objects.create(
             customer_name=customer_name,
             customer_number=customer_number,
             slot=slot,
+            booking_date=slot.date,  # Explicitly set the booking date to the slot's date
             amount=1500,  # Fixed amount
-            payment_status='Pending'
+            payment_status='Completed'
         )
 
         # Mark the slot as unavailable

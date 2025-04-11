@@ -13,7 +13,7 @@ class Booking(models.Model):
     customer_name = models.CharField(max_length=100)  # Name of the customer
     customer_number = models.CharField(max_length=15)  # Contact number
     slot = models.ForeignKey(Slot, on_delete=models.CASCADE)  # Link to Slot table
-    booking_date = models.DateField(auto_now_add=True)  # Date of booking
+    booking_date = models.DateField()  # Date of booking
     amount = models.IntegerField(default=1500)  # Fixed amount
     payment_status = models.CharField(max_length=20, choices=[
         ('Pending', 'Pending'),
