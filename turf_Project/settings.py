@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -75,14 +76,16 @@ WSGI_APPLICATION = 'turf_Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+import os
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'turf_db',
-        'USER': 'turf_admin',
-        'PASSWORD': 'turf_pass123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME', 'turf_db'),  # Database name
+        'USER': os.getenv('DB_USER', 'turf_admin'),  # PostgreSQL username
+        'PASSWORD': os.getenv('DB_PASSWORD', 'turf_pass123'),  # Password for the database user
+        'HOST': os.getenv('DB_HOST', 'localhost'),  # Hostname
+        'PORT': os.getenv('DB_PORT', '5432'),  # Port where PostgreSQL is running
     }
 }
 
