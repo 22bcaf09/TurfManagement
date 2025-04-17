@@ -1,29 +1,39 @@
 pipeline {
     agent any
+
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main',
-                    credentialsId: '09bdb29f-0d21-45a7-beeb-cc4b17916025', // The ID you set earlier
-                    url: 'https://github.com/22bcaf09/TurfManagement.git'
+                echo 'Checking out code...'
+                checkout([ 
+                    $class: 'GitSCM', 
+                    branches: [[name: '*/main']], 
+                    extensions: [], 
+                    userRemoteConfigs: [[ 
+                        url: 'https://github.com/22bcaf09/TurfManagement.git', 
+                        credentialsId: 'turfid' 
+                    ]] 
+                ])
             }
         }
+
         stage('Build') {
             steps {
-                echo 'Building project...'
-                // Add build steps here
+                echo 'Building Docker Compose services...'
+                bat 'docker-compose -p turfmanagement build'
             }
         }
+
         stage('Run Tests') {
             steps {
-                echo 'Running tests...'
-                // Add test execution commands here
+                echo 'Skipping tests for now...'
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                // Add deployment steps here
+                echo 'Deploying the application using Docker Compose...'
+                bat 'docker-compose -p turfmanagment up -d'
             }
         }
     }
