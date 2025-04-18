@@ -81,11 +81,11 @@ import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'turf_db'),  # Database name
-        'USER': os.getenv('DB_USER', 'turf_admin'),  # PostgreSQL username
-        'PASSWORD': os.getenv('DB_PASSWORD', 'turf_pass123'),  # Password for the database user
-        'HOST': os.getenv('DB_HOST', 'localhost'),  # Hostname
-        'PORT': os.getenv('DB_PORT', '5432'),  # Port where PostgreSQL is running
+        'NAME': os.getenv('DB_NAME', 'turf_db'),  # Updated to match the project name
+        'USER': os.getenv('DB_USER', 'turf_admin'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'turf_pass123'),
+        'HOST': os.getenv('DB_HOST', 'db'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 

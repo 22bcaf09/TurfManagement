@@ -20,7 +20,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Docker Compose services...'
-                bat 'docker-compose -p turfmanagement build'
+                bat 'docker-compose -p turfproject build'
             }
         }
 
@@ -33,7 +33,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application using Docker Compose...'
-                bat 'docker-compose -p turfmanagment up -d'
+                bat 'docker-compose -p turfproject up -d'
             }
         }
     }
